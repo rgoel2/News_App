@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">News App</string>
+    <string name="error_message">Unable to Laod, Please try later.</string>
+</resources>
