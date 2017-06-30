@@ -1,12 +1,15 @@
 package com.example.rohangoel.newsapp.Utilities;
-
 import android.net.Uri;
-
+import com.example.rohangoel.newsapp.Data.NewsItem;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -14,20 +17,16 @@ import java.util.Scanner;
  */
 
 public class NetworkUtility {
-
     private static final String NEWS_API_URL="https://newsapi.org/v1/articles";
-
     private static final String format = "json";
-
     static final String source="the-next-web";
     static final String apikey="610d727b342944118b80a3ce3cfdaf19";
     static final String sortby="latest";
-
     static final String PARAM_SOURCE="source";
     static final String PARAM_API="apiKey";
     static final String PARAM_SORT="sortBy";
 
-    public static URL buildUrl(String newsQuery)
+    public static URL buildUrl()
     {
         Uri builtUri= Uri.parse(NEWS_API_URL).buildUpon()
                 .appendQueryParameter(PARAM_SOURCE,source)
@@ -60,5 +59,26 @@ public class NetworkUtility {
         } finally {
             urlConnection.disconnect();
         }
+    }
+    public static List<NewsItem> parseJSON(String json){
+        List<NewsItem> newsItem = new ArrayList<NewsItem> ();
+
+        try{
+
+            JSONObject root= new JSONObject(json);
+            JSONArray articles= root.getJSONArray("articles");
+            for (int i = 0; i < articles.length() ; i++) {
+                JSONObject article=articles.getJSONObject(i);
+                String title = article.getString("title");
+                String author = article.getString("author");
+                String description = article.getString("description");
+                String publishedAt = article.getString("publishedAt");
+                String url = article.getString("url");
+                newsItem.add(new NewsItem(title,  description, url, author, publishedAt));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return newsItem;
     }
 }
