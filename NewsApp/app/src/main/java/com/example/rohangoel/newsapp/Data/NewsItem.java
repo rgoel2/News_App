@@ -10,21 +10,22 @@ public class NewsItem {
     private String publishedAt;
     private String imageUrl;
     private String author;
+    private String url;
 
-    public NewsItem(String title, String description, String imageUrl, String author, String publishedAt) {
-        this.title = title;
-        this.description = description;
-        this.imageUrl = imageUrl;
-        this.author=author;
-        this.publishedAt=publishedAt;
-    }
-    public String getImageUrl() {
-        return imageUrl;
+
+
+    public NewsItem(String url,String title, String description, String imageUrl, String author, String publishedAt) {
+        setUrl(url);
+        setTitle(title);
+        setDescription(description);
+        setImageUrl(imageUrl);
+        setAuthor(author);
+        setPublishedAt(publishedAt);
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+    public String getUrl() {return url;}
+
+    public void setUrl(String url) {this.url = url;}
 
     public String getAuthor() {
         return author;
@@ -42,6 +43,14 @@ public class NewsItem {
         this.title = title;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -57,4 +66,6 @@ public class NewsItem {
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
+
+
 }

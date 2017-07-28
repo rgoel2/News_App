@@ -1,36 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/news_item_title"
-        style="@style/TextAppearance.AppCompat.Title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
-        android:fontFamily="monospace"
-        android:textSize="30sp"
-        tools:text="#42" />
+        android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/news_item_image" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/news_item_title"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="start"
+            android:layout_toRightOf="@+id/news_item_image"
+            android:fontFamily="monospace"
+            android:paddingLeft="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="News Title" />
+
+        <TextView
+            android:id="@+id/news_item_time"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/news_item_title"
+            android:paddingLeft="10dp"
+            android:fontFamily="monospace"
+            android:textColor="#000"
+            tools:text="Time posted" />
+
+            </LinearLayout>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/news_item_decsription"
+        android:id="@+id/news_item_description"
         style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/news_item_time"
         android:layout_gravity="center_vertical|center"
+        android:layout_toEndOf="@+id/news_item_image"
+        android:layout_toRightOf="@+id/news_item_image"
         android:fontFamily="monospace"
         android:textColor="#000"
-        tools:text="ViewHolder instance: 7" />
+        tools:text="News Description" />
 
-    <TextView
-        android:id="@+id/news_item_time"
-        style="@style/TextAppearance.AppCompat.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|end"
-        android:fontFamily="monospace"
-        android:textColor="#000"
-        tools:text="ViewHolder instance: 7" />
 </LinearLayout>

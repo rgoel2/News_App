@@ -1,5 +1,7 @@
 package com.example.rohangoel.newsapp.Utilities;
 import android.net.Uri;
+import android.util.Log;
+
 import com.example.rohangoel.newsapp.Data.NewsItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -61,7 +63,7 @@ public class NetworkUtility {
         }
     }
     public static List<NewsItem> parseJSON(String json){
-        List<NewsItem> newsItem = new ArrayList<NewsItem> ();
+        ArrayList<NewsItem> newsItems = new ArrayList<> ();
 
         try{
 
@@ -69,16 +71,19 @@ public class NetworkUtility {
             JSONArray articles= root.getJSONArray("articles");
             for (int i = 0; i < articles.length() ; i++) {
                 JSONObject article=articles.getJSONObject(i);
+                String url = article.getString("url");
                 String title = article.getString("title");
                 String author = article.getString("author");
+                String imageUrl= article.getString("urlToImage");
                 String description = article.getString("description");
-                String publishedAt = article.getString("publishedAt");
-                String url = article.getString("url");
-                newsItem.add(new NewsItem(title,  description, url, author, publishedAt));
+                String datetime = article.getString("publishedAt");
+                String publishedAt = datetime.substring(0,10)+" "+datetime.substring(12,datetime.length()-1);
+                Log.i("publishedAt :  ",publishedAt);
+                newsItems.add(new NewsItem(url, title, description,imageUrl, author, publishedAt));
             }
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return newsItem;
+        return newsItems;
     }
 }

@@ -6,15 +6,16 @@
     android:orientation="vertical"
     tools:context="com.example.rohangoel.newsapp.MainActivity">
 
-    <EditText
-        android:id="@+id/news_search_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/search_hint"
-        android:textSize="22sp" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_news"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </FrameLayout>
