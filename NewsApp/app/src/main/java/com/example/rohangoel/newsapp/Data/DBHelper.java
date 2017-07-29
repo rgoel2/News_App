@@ -8,7 +8,7 @@ import android.util.Log;
 /**
  * Created by rohangoel on 7/28/17.
  */
-
+//TODO subclass SQLOpenHelper created to Create Database.
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;

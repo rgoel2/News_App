@@ -27,7 +27,7 @@ import com.example.rohangoel.newsapp.Utilities.ScheduleUtilities;
 
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Void>,
-        NewsAdapter.ItemClickListener {
+        NewsAdapter.NewsItemClickListener {
 
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.rv_news);
         progressBar=(ProgressBar) findViewById(R.id.progressBar);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isFirst = prefs.getBoolean("isfirst", true);
 
+        //TODO Checking if App is Installed Earlier
         if (isFirst) {
             load();
             SharedPreferences.Editor editor = prefs.edit();
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         newsAdapter = new NewsAdapter(cursor, this);
         recyclerView.setAdapter(newsAdapter);
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             return true;
     }
 
+    //TODO using AsyncTaskLoader instead of AsyncTask for Downloading data in Background
     @Override
     public Loader<Void> onCreateLoader(int id, final Bundle args) {
         return new AsyncTaskLoader<Void>(this) {
@@ -122,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         cursor.moveToPosition(clickedItemIndex);
         String url = cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_URL));
         Log.i("clicked", String.format("Url %s", url));
+
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
         startActivity(intent);

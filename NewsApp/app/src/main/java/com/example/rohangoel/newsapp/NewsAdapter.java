@@ -3,7 +3,6 @@ package com.example.rohangoel.newsapp;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +18,17 @@ import com.squareup.picasso.Picasso;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
-    private ItemClickListener listener;
+    private NewsItemClickListener listener;
     private Context context;
     private Cursor cursor;
 
-    NewsAdapter(Cursor cursor, ItemClickListener listener)
+    NewsAdapter(Cursor cursor, NewsItemClickListener listener)
     {
         this.cursor=cursor;
         this.listener = listener;
     }
 
-    public interface ItemClickListener {
+    public interface NewsItemClickListener {
         void onItemClick(Cursor cursor, int clickedItemIndex);
     }
 
@@ -47,17 +46,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     @Override
     public void onBindViewHolder(NewsViewHolder holder, final int position) {
-        cursor.moveToPosition(position);
-
-        // Setting Data to TextViews
-        holder.newsTitleTextView.setText(cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_TITLE)));
-        holder.newsTimeTextView.setText(cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_AUTHOR))
-                +" "+cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_PUBLISHED_AT)));
-        holder.newsDescriptionTextView.setText(cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_DESCRIPTION)));
-
-        // Adding Image using Picasso
-        String imageURL= cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_IMAGE_URL));
-        Picasso.with(context).load(imageURL).into(holder.newsImageView);
+        holder.bind(position);
     }
 
     @Override
@@ -78,12 +67,25 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             newsDescriptionTextView = (TextView) itemView.findViewById(R.id.news_item_description);
             newsTimeTextView = (TextView) itemView.findViewById(R.id.news_item_time);
             newsImageView= (ImageView) itemView.findViewById(R.id.news_item_image);
+            itemView.setOnClickListener(this);
+        }
+        public void bind(int position){
+            cursor.moveToPosition(position);
+
+            //TODO Setting Data from Database to RecyclerView's TextViews
+            newsTitleTextView.setText(cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_TITLE)));
+            newsTimeTextView.setText(cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_AUTHOR))
+                    +" "+cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_PUBLISHED_AT)));
+            newsDescriptionTextView.setText(cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_DESCRIPTION)));
+
+            //TODO load Image using Picasso in ImageView
+            String imageURL= cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWS.COLUMN_NAME_IMAGE_URL));
+            Picasso.with(context).load(imageURL).into(newsImageView);
         }
 
         @Override
         public void onClick(View view) {
             int position=getAdapterPosition();
-            Log.i("Clicked at : ", Integer.toString(position));
             listener.onItemClick(cursor,position);
         }
     }

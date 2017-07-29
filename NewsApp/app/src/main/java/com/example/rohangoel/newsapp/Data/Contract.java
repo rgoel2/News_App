@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 /**
  * Created by rohangoel on 7/28/17.
  */
-
+//TODO Creating Contract to Define Table and Column Name
 public class Contract {
 
     public static class TABLE_NEWS implements BaseColumns {

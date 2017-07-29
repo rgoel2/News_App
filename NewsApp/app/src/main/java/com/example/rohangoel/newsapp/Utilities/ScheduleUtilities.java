@@ -8,10 +8,10 @@ import com.firebase.jobdispatcher.*;
 /**
  * Created by rohangoel on 7/28/17.
  */
-
+//TODO Implement Firebase JobScheduler to Update Content in a Minute.
 public class ScheduleUtilities {
 
-    private static final int SCHEDULE_INTERVAL_MINUTES = 360;
+    private static final int SCHEDULE_INTERVAL_MINUTES = 0;
     private static final int SYNC_FLEXTIME_SECONDS = 60;
     private static final String NEWS_JOB_TAG = "news_job_tag";
 
@@ -36,6 +36,5 @@ public class ScheduleUtilities {
 
         dispatcher.schedule(constraintRefreshJob);
         sInitialized = true;
-
     }
 }
